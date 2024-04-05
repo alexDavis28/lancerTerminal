@@ -32,11 +32,10 @@ const simple_commands = simple_commands_raw.map((cmd) => [
 			var tv = $(".tv");
 
 			var default_cmd_helps = [
-				["help", "List available commands"],
-				["ls", "List available documents"],
+				["help", "List commands"],
+				["ls", "List documents"],
 				["read <index>", "Open document"],
-				["clear", "Clear terminal"],
-				["reset", "Reset terminal"]
+				["reset", "Reset terminal"],
 			];
 
 			var terminal = $("main").terminal(
