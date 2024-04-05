@@ -5,108 +5,125 @@ import "../style/style.css";
 
 const documents = await Astro.glob("../content/documents/*.md");
 const doc_texts = documents.map((doc) => doc.rawContent());
-const doc_headings = documents.map((doc) => doc.frontmatter.title)
+const doc_headings = documents.map((doc) => doc.frontmatter.title);
 
 import * as greetingText from "../content/welcome.md";
 const greeting_text = greetingText.rawContent();
 
 const simple_commands_raw = await Astro.glob("../content/simple-commands/*.md");
-const simple_commands = simple_commands_raw.map((cmd) => [cmd.frontmatter.help, cmd.frontmatter.stub, cmd.rawContent()]);
+const simple_commands = simple_commands_raw.map((cmd) => [
+	cmd.frontmatter.help,
+	cmd.frontmatter.stub,
+	cmd.rawContent(),
+]);
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<script define:vars={{ doc_texts, doc_headings, greeting_text, simple_commands}}>
+		<script
+			define:vars={{
+				doc_texts,
+				doc_headings,
+				greeting_text,
+				simple_commands,
+			}}
+		>
 			var scanlines = $(".scanlines");
 			var tv = $(".tv");
-			var divider = "----------------------------------------------";
 
 			var default_cmd_helps = [
 				["help", "Lists available commands"],
 				["ls", "Lists available documents"],
 				["read <index>", "Open a document"],
-				["clear", "Clears the terminal"]
+				["clear", "Clears the terminal"],
 			];
 
 			var terminal = $("main").terminal(
 				[
-					{help: function () {
-						const padding_width = 16;
-						var header = "Command         Description";
-						this.echo(header);
-						this.echo("-".repeat(header.length));
+					{
+						help: function () {
+							const padding_width = 16;
+							var header = "Command         Description";
+							this.echo(header);
+							this.echo("-".repeat(header.length));
 
-						for (let i = 0; i < default_cmd_helps.length; i++) {
-							const element = default_cmd_helps[i];
-							const cmd = element[0];
-							const text = element[1];
-							var padding = " ".repeat(padding_width - cmd.length);
-							this.echo(cmd + padding + text);
-						}
+							for (let i = 0; i < default_cmd_helps.length; i++) {
+								const element = default_cmd_helps[i];
+								const cmd = element[0];
+								const text = element[1];
+								var padding = " ".repeat(
+									padding_width - cmd.length,
+								);
+								this.echo(cmd + padding + text);
+							}
 
-						for (let i = 0; i < simple_commands.length; i++) {
-							const element = simple_commands[i];
-							const cmd = element[1];
-							const text = element[0];
-							var padding = " ".repeat(
-								padding_width - cmd.length,
-							);
-							this.echo(cmd + padding + text);
-						}
+							for (let i = 0; i < simple_commands.length; i++) {
+								const element = simple_commands[i];
+								const cmd = element[1];
+								const text = element[0];
+								var padding = " ".repeat(
+									padding_width - cmd.length,
+								);
+								this.echo(cmd + padding + text);
+							}
+						},
+						echo: function (arg1) {
+							this.echo(arg1);
+						},
+						ls: function () {
+							// Note 4 spaces for split
+							var header = "Index    Title";
+							this.echo(header);
+							this.echo("-".repeat(header.length));
+							for (let i = 0; i < doc_headings.length; i++) {
+								var padding = 9 - i.toString().length;
+								this.echo(
+									"" +
+										(i + 1) +
+										" ".repeat(padding) +
+										doc_headings[i],
+								);
+							}
+						},
+						read: function (index) {
+							if (
+								typeof index === "undefined" ||
+								index - 1 < 0 ||
+								index > doc_headings.length
+							) {
+								this.echo("[[;red;]Index Not found!]");
+							} else {
+								this.echo(
+									`[[bu;;]` + doc_headings[index - 1] + `]\n`,
+								);
+								this.typing("echo", "10", doc_texts[index - 1]);
+							}
+						},
 					},
-					echo: function (arg1) {
-						this.echo(arg1);
-					},
-					ls: function () {
-						// Note 4 spaces for split
-						var header = "Index    Title";
-						this.echo(header);
-						this.echo("-".repeat(header.length));
-						for (let i = 0; i < doc_headings.length; i++) {
-							var padding = 9 - i.toString().length;
-							this.echo(
-								"" +
-									(i + 1) +
-									" ".repeat(padding) +
-									doc_headings[i],
-							);
-						}
-					},
-					read: function (index) {
-						try {
-							console.log(index);
-							this.echo(
-								`[[bu;;]` +
-									doc_headings[index-1] +
-									`]\n`,
-							);
-							this.typing(
-								"echo",
-								"10",
-								doc_texts[index-1],
-							);
-						} catch (err) {
-							this.echo("[[;red;]Index Not found!]");
-						}
-					},},
-					function(command) {
+					function (command) {
 						// Returns simple text from simple-commands
-						if (simple_commands.map((cmd) => cmd[1]).includes(command)) {
-							index = simple_commands.map((cmd) => cmd[1]).indexOf(command);
+						if (
+							simple_commands
+								.map((cmd) => cmd[1])
+								.includes(command)
+						) {
+							index = simple_commands
+								.map((cmd) => cmd[1])
+								.indexOf(command);
 							this.echo(simple_commands[index][2]);
+						} else {
+							this.echo(
+								"[[;red;]Command '" + command + "' Not Found!]",
+							);
 						}
-						else {
-							this.echo("[[;red;]Command '"+command+"' Not Found!]");
-						}
-					}
+					},
 				],
 				{
-					prompt: "$ ",
+					prompt: ">// ",
 					greetings: false,
 					onInit: function () {
-						this.echo(divider);
+						// console.log(greeting_text);
 						this.echo(greeting_text);
-						this.echo(divider);
 					},
 				},
 			);
