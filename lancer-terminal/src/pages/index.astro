@@ -2,26 +2,24 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import "../style/style.css";
+
 const documents = await Astro.glob("../content/documents/*.md");
 const doc_texts = documents.map((doc) => doc.rawContent());
 const doc_headings = documents.map((doc) => doc.frontmatter.title)
+
 import * as greetingText from "../content/welcome.md";
 const greeting_text = greetingText.rawContent();
+
+const simple_commands_raw = await Astro.glob("../content/simple-commands/*.md");
+const simple_commands = simple_commands_raw.map((cmd) => [cmd.frontmatter.help, cmd.frontmatter.stub, cmd.rawContent()]);
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<script define:vars={{ doc_texts, doc_headings, greeting_text }}>
+		<script define:vars={{ doc_texts, doc_headings, greeting_text, simple_commands}}>
 			var scanlines = $(".scanlines");
 			var tv = $(".tv");
 			var divider = "----------------------------------------------";
-
-			var help_texts = [
-				["help", "List available commands"],
-				["ls", "Lists available documents"],
-				["read <index>", "Open a document"],
-				["clear", "Clears the terminal"],
-			];
 
 			var terminal = $("main").terminal(
 				{
@@ -30,10 +28,11 @@ const greeting_text = greetingText.rawContent();
 						var header = "Command         Description";
 						this.echo(header);
 						this.echo("-".repeat(header.length));
-						for (let i = 0; i < help_texts.length; i++) {
-							const element = help_texts[i];
-							const cmd = element[0];
-							const text = element[1];
+
+						for (let i = 0; i < simple_commands.length; i++) {
+							const element = simple_commands[i];
+							const cmd = element[1];
+							const text = element[0];
 							var padding = " ".repeat(
 								padding_width - cmd.length,
 							);
