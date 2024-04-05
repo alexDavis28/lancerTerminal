@@ -2,6 +2,6 @@
 help: Utility control
 stub: utility
 ---
-STATUE [TRUE / False]
-VENTILATION {ON / OFF]
-OXYGEN [ON / LOW / OFF]
+STATUE [TRUE / [[bgu;;]False]]
+VENTILATION [[[bgu;;]ON] / OFF]
+OXYGEN [[[bgu;;]ON] / LOW / OFF]
