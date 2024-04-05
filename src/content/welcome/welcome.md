@@ -24,5 +24,5 @@ RCU subjective-clock acceleration is DISABLED.
 Establishing encrypted link (56::BRONZE CROSS) . . . done
 AM-LI in unprivileged domain disabled
 No sensory bridge found // manual input mode enabled
-----------------------------------------------------------------
+
 >// [COMP/CON: Welcome, Captain. Input Command.]
