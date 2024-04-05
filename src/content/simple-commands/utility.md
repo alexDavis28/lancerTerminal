@@ -1,5 +1,5 @@
 ---
-help: Utility control
+help: Utility status
 stub: utility
 ---
 STATUE [TRUE / [[bgu;;]False]]
