@@ -21,13 +21,28 @@ const simple_commands = simple_commands_raw.map((cmd) => [cmd.frontmatter.help, 
 			var tv = $(".tv");
 			var divider = "----------------------------------------------";
 
+			var default_cmd_helps = [
+				["help", "Lists available commands"],
+				["ls", "Lists available documents"],
+				["read <index>", "Open a document"],
+				["clear", "Clears the terminal"]
+			];
+
 			var terminal = $("main").terminal(
-				{
-					help: function () {
+				[
+					{help: function () {
 						const padding_width = 16;
 						var header = "Command         Description";
 						this.echo(header);
 						this.echo("-".repeat(header.length));
+
+						for (let i = 0; i < default_cmd_helps.length; i++) {
+							const element = default_cmd_helps[i];
+							const cmd = element[0];
+							const text = element[1];
+							var padding = " ".repeat(padding_width - cmd.length);
+							this.echo(cmd + padding + text);
+						}
 
 						for (let i = 0; i < simple_commands.length; i++) {
 							const element = simple_commands[i];
@@ -71,11 +86,20 @@ const simple_commands = simple_commands_raw.map((cmd) => [cmd.frontmatter.help, 
 								doc_texts[index-1],
 							);
 						} catch (err) {
-							console.log(err);
-							this.echo("[[;red;]Index not found!]");
+							this.echo("[[;red;]Index Not found!]");
 						}
-					},
-				},
+					},},
+					function(command) {
+						// Returns simple text from simple-commands
+						if (simple_commands.map((cmd) => cmd[1]).includes(command)) {
+							index = simple_commands.map((cmd) => cmd[1]).indexOf(command);
+							this.echo(simple_commands[index][2]);
+						}
+						else {
+							this.echo("[[;red;]Command '"+command+"' Not Found!]");
+						}
+					}
+				],
 				{
 					prompt: "$ ",
 					greetings: false,
