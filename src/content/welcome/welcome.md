@@ -12,7 +12,6 @@ KERNEL supported CPUs:
     [INVALID]
     [INVALID]
 Policy Zone: 83::STOLEN BREATH
-
 WARNING: DATA NOT PRESENT OR INVALID
 ******************************************
 Initializing gms-cc-subsys v_int

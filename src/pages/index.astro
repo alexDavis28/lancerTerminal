@@ -7,7 +7,7 @@ const documents = await Astro.glob("../content/documents/*.md");
 const doc_texts = documents.map((doc) => doc.rawContent());
 const doc_headings = documents.map((doc) => doc.frontmatter.title);
 
-import * as greetingText from "../content/welcome.md";
+import * as greetingText from "../content/welcome/welcome.md";
 const greeting_text = greetingText.rawContent();
 
 const simple_commands_raw = await Astro.glob("../content/simple-commands/*.md");
@@ -18,7 +18,7 @@ const simple_commands = simple_commands_raw.map((cmd) => [
 ]);
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Lancer Terminal">
 	<main>
 		<script
 			define:vars={{
