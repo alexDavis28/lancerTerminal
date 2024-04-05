@@ -1,0 +1,8 @@
+version: '3'
+services:
+  lancer-terminal:
+    container_name: "lancer-terminal"
+    build: .
+    ports:
+      - "5080:8080"
+    restart: "unless-stopped"
