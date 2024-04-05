@@ -32,10 +32,11 @@ const simple_commands = simple_commands_raw.map((cmd) => [
 			var tv = $(".tv");
 
 			var default_cmd_helps = [
-				["help", "Lists available commands"],
-				["ls", "Lists available documents"],
-				["read <index>", "Open a document"],
-				["clear", "Clears the terminal"],
+				["help", "List available commands"],
+				["ls", "List available documents"],
+				["read <index>", "Open document"],
+				["clear", "Clear terminal"],
+				["reset", "Reset terminal"]
 			];
 
 			var terminal = $("main").terminal(
@@ -99,6 +100,10 @@ const simple_commands = simple_commands_raw.map((cmd) => [
 								this.typing("echo", "10", doc_texts[index - 1]);
 							}
 						},
+						reset: function() {
+							this.clear();
+							this.echo(greeting_text);
+						}
 					},
 					function (command) {
 						// Returns simple text from simple-commands
