@@ -3,22 +3,6 @@ title: Welcome
 ---
 Constellar Congress access requested
 
-INITIALIZING PRIVATE OMNINET TUNNEL⏣
-analyzing 𐄫 [[ un_omni-18364.andes.cerrobonete.node:9 11ns,]] found --> evaluation fail [insecure]
-analyzing 𐄫 [[ un_omni-73421.vindhya.mahendragiri.node:2 515ns,]] found --> evaluation success [secure]
-Congress Node connected. Your connection is secure.
-
-CONNECTING TO CONSTELLAR CONGRESS ⧟
-Connected to Constellar Congress. Prepare for bio-authentication flare.
-
-USERSCAN INITIATED ⊹
-GENETIC PROFILING 99.99115% match
-Biometric readings confirmed. Welcome
-
-VR BUILDING SIMULATION ACTIVATED
-Smith-Shimano Corpro - Constellar Congress EAAS 8.0 (Build 118765)
-Sector/Campus 𐄘 86::EPSILON SWORD
-
 ...                ...               ...          
 .x888888hx    :    .x888888hx    :    xH88"'~ .x8X    
 d88888888888hxx    d88888888888hxx   :8888   .f"8888Hf 
