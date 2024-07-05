@@ -11,5 +11,4 @@ Ocury-XII
 Bevolia
 Zichi
 
-
 Collective population: 28 billion

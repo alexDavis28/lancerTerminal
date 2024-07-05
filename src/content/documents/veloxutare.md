@@ -12,7 +12,3 @@ Over the past few months we have seen an improvement in the product veloxutare a
 Full deployment of the product should be ready in time for the house games.
 
 In case of emergency, an antidote has been created and can be located at the lab on Tilimsan.
-
-
-
-
