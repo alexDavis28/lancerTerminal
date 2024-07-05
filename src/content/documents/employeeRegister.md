@@ -1,3 +1,6 @@
+---
+title: Employee Register
+---
 Surname | Forename | Status | Body double no. | Status
 -- | -- | -- | -- | --
 Aricas|June|~~Alive~~ Deceased|48|Destroyed
